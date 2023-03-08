@@ -47,7 +47,10 @@ public class App {
     }
 
     private static Object editUser(Request req, Response res) {
-        return "ok";
+        User user = gson.fromJson(req.body(), User.class);
+        userServiceImpl.editUser(user);
+        res.type("application/json");
+        return "zmieniono usera o id: " + user.getId();
     }
 
     private static Object ifUserExists(Request req, Response res) {

@@ -8,9 +8,8 @@ import java.util.HashMap;
 public class UserServiceImpl implements controller.UserService{
     static Gson gson = new Gson();
 
+    String temp;
     HashMap<String, User> users = new HashMap<>();
-
-    String temp = "";
 
     @Override
     public void addUser(User user) {
@@ -30,6 +29,7 @@ public class UserServiceImpl implements controller.UserService{
 
     @Override
     public User editUser(User user) {
+        users.put(user.getId(), user);
         return null;
     }
 
