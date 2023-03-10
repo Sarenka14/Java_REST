@@ -34,7 +34,8 @@ public class App {
     }
 
     private static Object idUser(Request req, Response res) {
-        return "ok";
+        res.type("application/json");
+        return userServiceImpl.getUsers(req.params("id"));
     }
 
     private static Object add(Request req, Response res) {
@@ -50,14 +51,20 @@ public class App {
         User user = gson.fromJson(req.body(), User.class);
         userServiceImpl.editUser(user);
         res.type("application/json");
-        return "zmieniono usera o id: " + user.getId();
+        return "Zmieniono usera o id: " + user.getId();
     }
 
     private static Object ifUserExists(Request req, Response res) {
-        return "ok";
+        if(userServiceImpl.userExist(req.params("id"))){
+            return "User istnieje";
+        }else{
+            return "User nie istnieje";
+        }
     }
 
     private static Object deleteUser(Request req, Response res) {
-        return "ok";
+        userServiceImpl.deleteUser(req.params("id"));
+        res.type("application/json");
+        return "Usunieto usera o id: " + req.params("id");
     }
 }
