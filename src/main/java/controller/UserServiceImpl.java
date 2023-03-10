@@ -19,29 +19,33 @@ public class UserServiceImpl implements controller.UserService{
     @Override
     public String getUsers() {
         temp = "";
-
         users.entrySet().forEach(entry->{
             temp += entry.getKey() + ": " + gson.toJson(entry.getValue(), User.class);
-            temp += "\n";
         });
         return temp;
     }
+    @Override
+    public String getUsers(String id) {
+        return gson.toJson(users.get(id), User.class);
+    }
 
     @Override
-    public User editUser(User user) {
+    public void editUser(User user) {
         users.put(user.getId(), user);
-        return null;
     }
 
     @Override
     public void deleteUser(String id) {
-
+        users.remove(id);
     }
 
     @Override
     public Boolean userExist(String id) {
-        return null;
+        return users.get(id) != null;
     }
 }
+
+
+
 
 
